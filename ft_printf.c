@@ -6,7 +6,7 @@
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:30:22 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/22 19:23:43 by dahmane          ###   ########.fr       */
+/*   Updated: 2024/11/26 15:29:26 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,43 @@ int	ft_putstr(char *s)
 	}
 	return (n);
 }
+int	ft_strlen(char *str)
+{
+	int	n;
+
+	n = 0;
+	while (str[n])
+	{
+		n++;
+	}
+	return (n);
+}
+
+int	ft_putnbr_base(int nb, char *base)
+{
+	long	n;
+	int	count;
+	int	size;
+	
+	size = ft_strlen(base);
+	n = nb;
+	count = 0;
+	if (n < 0)
+	{
+		//count += ft_nputchar('-');
+		n *= -1;
+	}
+	if (n < size)
+	{
+		count += ft_nputchar(base[n]);	
+	}
+	if (n >= size)
+	{
+		count += ft_putnbr_base(n / size, base);
+		count += ft_nputchar(base[n % size]);
+	}
+	return (count);
+}
 ///////////////////////////////////////////////////////////
 
 int	check(char c, va_list args)
@@ -67,7 +104,9 @@ int	check(char c, va_list args)
 	if (c == 'c')
 		return (ft_nputchar(va_arg(args, int)));
 	if (c == 'x')
-		return (ft_nputchar(va_arg(args, int)));
+		return (ft_putnbr_base(va_arg(args, int), "0123456789abcdef"));
+	if (c == 'X')
+		return (ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF"));
 	return (count);
 }
 
@@ -104,5 +143,5 @@ int	main(void)
 {
 	//printnumbers(4, "hello", "bye", "aaa", "klvnlr;va");
 	//ft_print("number 1 = %d, number 2 = %d, string = %s", 14, 8, "pomme");
-	printf("%d\n", ft_print("hexadec = %x, number = %d, string = %s, char = %c", 213, 14, "pomme", 'g'));
+	printf("%d\n", ft_print("hexadec = %x, number = %d, string = %s, char = %c", 1, 14, "pomme", 'g'));
 }
