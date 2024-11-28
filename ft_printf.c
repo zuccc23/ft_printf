@@ -6,7 +6,7 @@
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:30:22 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/28 15:44:07 by dahmane          ###   ########.fr       */
+/*   Updated: 2024/11/28 16:19:56 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,34 @@ int	ft_putnbr(int n)
 		count += ft_nputchar((nb % 10 + '0'));
 	return (count);
 }
+int	ft_u_putnbr(unsigned int n)
+{
+	unsigned long	nb;
+	int	count;
+
+	count = 0;
+	nb = n;
+	if (nb > 9)
+	{
+		count += ft_u_putnbr((nb / 10));
+		count += ft_nputchar((nb % 10 + '0'));
+	}
+	if (nb <= 9 && nb >= 0)
+		count += ft_nputchar((nb % 10 + '0'));
+	return (count);
+}
+
 int	ft_putstr(char *s)
 {
 	int	n;
 
+	if (!s)
+		return (ft_putstr("(null)"));
 	n = 0;
 	while (s[n])
 	{
 		write(1, &s[n], 1);
-		n ++;
+		n++;
 	}
 	return (n);
 }
@@ -108,6 +127,8 @@ int	check(char c, va_list args)
 	count = 0;
 	if (c == 'd' || c == 'i')
 		return (ft_putnbr(va_arg(args, int)));
+	if (c == 'u')
+		return (ft_u_putnbr(va_arg(args, unsigned int)));
 	if (c == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	if (c == 'c')
@@ -118,6 +139,8 @@ int	check(char c, va_list args)
 		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF"));
 	if (c == 'p')
 		return (print_address(va_arg(args, void *)));
+	if (c == '%')
+		return (ft_nputchar('%'));
 	return (count);
 }
 
@@ -155,7 +178,7 @@ int	main(void)
 	int n = 42;
 	//printnumbers(4, "hello", "bye", "aaa", "klvnlr;va");
 	//ft_print("number 1 = %d, number 2 = %d, string = %s", 14, 8, "pomme");
-	printf("%d\n", ft_print("address = %p,\n hexadec = %x,\n number = %d,\n string = %s,\n char = %c", &n, 123456, 14, "pomme", 'g'));
+	printf("%d\n", ft_print("percent = %%,\n unsigned = %u,\n address = %p,\n hexadec = %x,\n number = %d,\n string = %s,\n char = %c", 12, &n, 123456, 14, "pomme", 'g'));
 	printf("%p\n", &n);
 	// printf("%d\n", ft_print("%x\n", -123456));
 }
