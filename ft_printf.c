@@ -6,7 +6,7 @@
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:30:22 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/26 15:29:26 by dahmane          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:55:57 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,15 @@ int	ft_strlen(char *str)
 	return (n);
 }
 
-int	ft_putnbr_base(int nb, char *base)
+int	ft_putnbr_base(unsigned long nb, char *base)
 {
-	long	n;
+	unsigned long	n;
 	int	count;
 	int	size;
 	
 	size = ft_strlen(base);
-	n = nb;
+	n = (unsigned long)nb;
 	count = 0;
-	if (n < 0)
-	{
-		//count += ft_nputchar('-');
-		n *= -1;
-	}
 	if (n < size)
 	{
 		count += ft_nputchar(base[n]);	
@@ -90,6 +85,17 @@ int	ft_putnbr_base(int nb, char *base)
 	}
 	return (count);
 }
+int	print_address(void * ptr)
+{
+	unsigned long	p;
+
+	if (!ptr)
+		return (0);
+	p = (long)ptr;
+	write(1, "0x", 2);
+	return (ft_putnbr_base(p, "0123456789abcdef") + 2);
+}
+
 ///////////////////////////////////////////////////////////
 
 int	check(char c, va_list args)
@@ -97,16 +103,18 @@ int	check(char c, va_list args)
 	int	count;
 
 	count = 0;
-	if (c == 'd')
+	if (c == 'd' || c == 'i')
 		return (ft_putnbr(va_arg(args, int)));
 	if (c == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	if (c == 'c')
 		return (ft_nputchar(va_arg(args, int)));
 	if (c == 'x')
-		return (ft_putnbr_base(va_arg(args, int), "0123456789abcdef"));
+		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef"));
 	if (c == 'X')
-		return (ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF"));
+		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF"));
+	if (c == 'p')
+		return (print_address(va_arg(args, void *)));
 	return (count);
 }
 
@@ -141,7 +149,10 @@ int	ft_print(char *str, ...)
 
 int	main(void)
 {
+	int n = 42;
 	//printnumbers(4, "hello", "bye", "aaa", "klvnlr;va");
 	//ft_print("number 1 = %d, number 2 = %d, string = %s", 14, 8, "pomme");
-	printf("%d\n", ft_print("hexadec = %x, number = %d, string = %s, char = %c", 1, 14, "pomme", 'g'));
+	printf("%d\n", ft_print("address = %p,\n hexadec = %x,\n number = %d,\n string = %s,\n char = %c", &n, 123456, 14, "pomme", 'g'));
+	printf("%p\n", &n);
+	// printf("%d\n", ft_print("%x\n", -123456));
 }
