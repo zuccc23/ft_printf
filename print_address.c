@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   print_address.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 19:25:59 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/28 17:48:49 by dahmane          ###   ########.fr       */
+/*   Created: 2024/11/28 17:23:49 by dahmane           #+#    #+#             */
+/*   Updated: 2024/11/28 17:38:19 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr_base(unsigned long nb, char *base)
+int	print_address(void *ptr)
 {
-	int				count;
-	int				size;
-	unsigned long	n;
+	unsigned long	p;
 
-	size = ft_strlen(base);
-	n = (unsigned long)nb;
-	count = 0;
-	if (n < size)
+	if (!ptr)
 	{
-		count += ft_nputchar(base[n]);
+		write(1, "(nil)", 5);
+		return (5);
 	}
-	if (n >= size)
-	{
-		count += ft_putnbr_base(n / size, base);
-		count += ft_nputchar(base[n % size]);
-	}
-	return (count);
+	p = (long)ptr;
+	write(1, "0x", 2);
+	return (ft_putnbr_base(p, "0123456789abcdef") + 2);
 }

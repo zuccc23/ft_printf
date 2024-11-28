@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_u_putnbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 19:25:59 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/28 17:48:49 by dahmane          ###   ########.fr       */
+/*   Created: 2024/11/28 17:26:07 by dahmane           #+#    #+#             */
+/*   Updated: 2024/11/28 17:48:12 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr_base(unsigned long nb, char *base)
+int	ft_u_putnbr(unsigned int n)
 {
 	int				count;
-	int				size;
-	unsigned long	n;
+	unsigned long	nb;
 
-	size = ft_strlen(base);
-	n = (unsigned long)nb;
 	count = 0;
-	if (n < size)
+	nb = n;
+	if (nb > 9)
 	{
-		count += ft_nputchar(base[n]);
+		count += ft_u_putnbr((nb / 10));
+		count += ft_nputchar((nb % 10 + '0'));
 	}
-	if (n >= size)
-	{
-		count += ft_putnbr_base(n / size, base);
-		count += ft_nputchar(base[n % size]);
-	}
+	if (nb <= 9 && nb >= 0)
+		count += ft_nputchar((nb % 10 + '0'));
 	return (count);
 }

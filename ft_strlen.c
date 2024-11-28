@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 19:25:59 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/28 17:48:49 by dahmane          ###   ########.fr       */
+/*   Created: 2024/11/28 17:23:25 by dahmane           #+#    #+#             */
+/*   Updated: 2024/11/28 17:33:23 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr_base(unsigned long nb, char *base)
+int	ft_strlen(char *str)
 {
-	int				count;
-	int				size;
-	unsigned long	n;
+	int	n;
 
-	size = ft_strlen(base);
-	n = (unsigned long)nb;
-	count = 0;
-	if (n < size)
+	n = 0;
+	while (str[n])
 	{
-		count += ft_nputchar(base[n]);
+		n++;
 	}
-	if (n >= size)
-	{
-		count += ft_putnbr_base(n / size, base);
-		count += ft_nputchar(base[n % size]);
-	}
-	return (count);
+	return (n);
 }

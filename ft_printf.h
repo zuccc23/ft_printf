@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 19:25:59 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/28 17:48:49 by dahmane          ###   ########.fr       */
+/*   Created: 2024/11/28 17:46:45 by dahmane           #+#    #+#             */
+/*   Updated: 2024/11/28 18:05:32 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	ft_putnbr_base(unsigned long nb, char *base)
-{
-	int				count;
-	int				size;
-	unsigned long	n;
+# include <unistd.h>
+# include <stdio.h>
+# include <stdarg.h>
 
-	size = ft_strlen(base);
-	n = (unsigned long)nb;
-	count = 0;
-	if (n < size)
-	{
-		count += ft_nputchar(base[n]);
-	}
-	if (n >= size)
-	{
-		count += ft_putnbr_base(n / size, base);
-		count += ft_nputchar(base[n % size]);
-	}
-	return (count);
-}
+int	ft_nputchar(char c);
+int	ft_putnbr(int n);
+int	ft_u_putnbr(unsigned int n);
+int	ft_putstr(char *s);
+int	ft_strlen(char *str);
+int	ft_putnbr_base(unsigned long nb, char *base);
+int	print_address(void *ptr);
+int	ft_printf(const char *str, ...);
+
+#endif
