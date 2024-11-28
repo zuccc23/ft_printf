@@ -6,7 +6,7 @@
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:30:22 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/28 14:55:57 by dahmane          ###   ########.fr       */
+/*   Updated: 2024/11/28 15:44:07 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ int	print_address(void * ptr)
 	unsigned long	p;
 
 	if (!ptr)
-		return (0);
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
 	p = (long)ptr;
 	write(1, "0x", 2);
 	return (ft_putnbr_base(p, "0123456789abcdef") + 2);
