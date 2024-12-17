@@ -6,7 +6,7 @@
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 19:25:59 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/28 17:48:49 by dahmane          ###   ########.fr       */
+/*   Updated: 2024/12/11 16:41:58 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_putnbr_base(unsigned long nb, char *base)
 {
 	int				count;
-	int				size;
+	unsigned long	size;
 	unsigned long	n;
 
 	size = ft_strlen(base);

@@ -6,7 +6,7 @@
 /*   By: dahmane <dahmane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:30:22 by dahmane           #+#    #+#             */
-/*   Updated: 2024/11/28 18:05:59 by dahmane          ###   ########.fr       */
+/*   Updated: 2024/12/16 15:56:07 by dahmane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	check(char c, va_list args)
 		return (print_address(va_arg(args, void *)));
 	if (c == '%')
 		return (ft_nputchar('%'));
+	else
+		return (ft_nputchar(c));
 	return (count);
 }
 
@@ -56,7 +58,8 @@ int	ft_printf(const char *str, ...)
 		}
 		if (str[i] == '%')
 		{
-			count += check(str[i + 1], args);
+			if (str[i + 1])
+				count += check(str[i + 1], args);
 			i += 2;
 		}
 	}
